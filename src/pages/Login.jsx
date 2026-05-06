@@ -25,19 +25,19 @@ export default function Login() {
           <div className="items-center gap-4 flex">
             <Input type="email" placeholder="Email" 
               value={email}
-              setEmail={setEmail}
+              setValue={setEmail}
             />
           </div>
          
           <div className="flex items-center gap-4 mb-3">
             <Input type="password" placeholder="Password" 
             value={password}
-            setPassword={setPassword}
+            setValue={setPassword}
           />
           </div>
           <button 
             className="bg-black 
-            p-2 rounded-full text-white 
+            p-2 rounded-lg text-white 
             shadow-xl cursor-pointer hover:bg-gray-800
             duration-200 ease-in-out"
           >

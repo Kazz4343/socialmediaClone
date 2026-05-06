@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import Input from "../components/Input";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
 
 
 export default function SignUp() {
@@ -9,6 +11,21 @@ export default function SignUp() {
   const [ username, setUsername ] = useState("");
   const [ password, setPassword ] = useState("");
   
+  const handleSignUp = async (e) => {
+    e.preventDefault()
+    try {
+      if (!email || !username || !password ) {
+        return;
+      }
+
+      const user = await createUserWithEmailAndPassword(auth, email, password);
+      console.log(user);
+      
+    } catch (err) {
+      console.log(err)
+    } 
+  }
+
   return (
     <div className="gap-3 flex items-center h-screen w-full justify-center bg-linear-to-br from-violet-900 to-green-900">
       {/* RegisterBox */}
@@ -21,28 +38,33 @@ export default function SignUp() {
           <p className="text-center text-gray-500">Start posting your emotion</p>
         </div>
 
-        <form className="flex grow flex-col gap-2 justify-center">
+        <form className="flex grow flex-col gap-2 justify-center"
+          onSubmit={handleSignUp}
+        >
           {/* Input field */}
           <div className="items-center gap-4 flex">
-            <Input type="email" placeholder="Email" 
+            <Input 
+              type="email" 
+              placeholder="Email" 
               value={email}
-              setEmail={setEmail}
+              setValue={setEmail}
             />
           </div>
           <div className="flex items-center gap-4">
             <Input type="text" placeholder="Username" 
               value={username}
-              setUsername={setUsername}
+              setValue={setUsername}
             />
           </div>
           <div className="flex items-center gap-4 mb-3">
             <Input type="password" placeholder="Password" 
               value={password}
-              setPassword={setPassword}
+              setValue={setPassword}
             />
           </div>
           
           <button 
+            type="submit"
             className="bg-black 
             p-2 rounded-full text-white 
             shadow-xl cursor-pointer hover:bg-gray-800
