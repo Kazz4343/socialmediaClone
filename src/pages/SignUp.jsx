@@ -1,8 +1,10 @@
-import { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import Input from "../components/Input";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { AuthContext } from "../context/AuthContext";
 
 
 export default function SignUp() {
@@ -11,6 +13,9 @@ export default function SignUp() {
   const [ username, setUsername ] = useState("");
   const [ password, setPassword ] = useState("");
   
+  const { user } = useContext(AuthContext);
+  console.log(user)
+
   const handleSignUp = async (e) => {
     e.preventDefault()
     try {
@@ -18,13 +23,22 @@ export default function SignUp() {
         return;
       }
 
-      const user = await createUserWithEmailAndPassword(auth, email, password);
-      console.log(user);
-      
+      const userInfo = await createUserWithEmailAndPassword(auth, email, password);
+
+      const userRef = doc(db, "users", userInfo.user.uid);
+      await setDoc(userRef,{
+        email:email,
+        username:username,
+        created_at: Date(),
+      });
+
+
     } catch (err) {
       console.log(err)
     } 
   }
+
+
 
   return (
     <div className="gap-3 flex items-center h-screen w-full justify-center bg-linear-to-br from-violet-900 to-green-900">

@@ -1,12 +1,26 @@
 import { Link } from "react-router-dom";
 import Input from "../components/Input";
 import { useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
 
 
 export default function Login() {
   
   const [ email, setEmail ] = useState("");
   const [ password, setPassword ] = useState("");
+  
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      if (!email || !password) {
+        return ;
+      }
+      await signInWithEmailAndPassword(auth, email, password)
+    } catch (err) {
+      console.log(err)
+    }
+  }
   
   return (
     <div className="gap-3 flex items-center h-screen w-full justify-center bg-linear-to-br from-violet-900 to-green-900">
