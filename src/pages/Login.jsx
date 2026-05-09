@@ -1,14 +1,18 @@
 import { Link } from "react-router-dom";
 import Input from "../components/Input";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
+import { AuthContext } from "../context/AuthContext";
 
 
 export default function Login() {
   
   const [ email, setEmail ] = useState("");
   const [ password, setPassword ] = useState("");
+  
+  const { user } = useContext(AuthContext);
+  console.log(user)
   
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -17,6 +21,7 @@ export default function Login() {
         return ;
       }
       await signInWithEmailAndPassword(auth, email, password)
+      
     } catch (err) {
       console.log(err)
     }
@@ -34,7 +39,10 @@ export default function Login() {
           <p className="text-center text-gray-500">Welcome back</p>
         </div>
 
-        <form className="flex grow flex-col gap-2 justify-center">
+        <form 
+          className="flex grow flex-col gap-2 justify-center"
+          onSubmit={handleLogin}
+          >
           
           <div className="items-center gap-4 flex">
             <Input type="email" placeholder="Email" 
@@ -54,6 +62,7 @@ export default function Login() {
             p-2 rounded-lg text-white 
             shadow-xl cursor-pointer hover:bg-gray-800
             duration-200 ease-in-out"
+            type="submit"
           >
             Login
           </button>
