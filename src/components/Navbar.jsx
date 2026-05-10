@@ -2,9 +2,15 @@ import { Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { FaAddressBook } from "react-icons/fa";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 
 export default function Navbar() {
+  
+  const { user } = useContext(AuthContext);
+  console.log(user)
+
   return (
     <div className="min-h-screen flex">
       <div className="p-10 pr-25 border-r border-black w-fit min-h-screen flex flex-col">
@@ -22,7 +28,7 @@ export default function Navbar() {
           </Link>
           <Link to={"/profile"} 
             className="flex items-center gap-5">
-            <FaAddressBook className="text-[1.7rem]"/><p className="text-[1.2rem]">Profile</p>
+            <FaAddressBook className="text-[1.7rem]"/><p className="text-[1.2rem]">@{user.username}</p>
           </Link>
         </div>
       </div>
