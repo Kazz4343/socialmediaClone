@@ -9,7 +9,7 @@ export default function Textarea({ id, placeholder, value, setValue }) {
         value={value}
         setValue={setValue}
         onChange={(e) => setValue(e.target.value)}
-        className="resize-none"
+        className="resize-none p-1 border rounded-lg w-96 h-40"
       >
       </textarea>
     </div>

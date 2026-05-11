@@ -1,29 +1,36 @@
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
-import { BsEscape } from "react-icons/bs";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { GiPlagueDoctorProfile } from "react-icons/gi";
+import { useNavigate } from "react-router-dom";
 
 export default function LogoutModal() {
   
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
    const handleLogout = async () => {
     try {
       await signOut(auth);
+      navigate("/login")
     } catch (err) {
       console.log(err)
     }
   }
   
   return (
-    <div>
-      <button 
-        className="flex gap-2 items-center 
-        justify-center bg-black text-white font-bold
-        py-1.5 px-2.5 rounded-lg shadow-2xl"
+  <div className="flex items-start border-l border-gray-200 p-10">
+    <GiPlagueDoctorProfile className="text-2xl mr-2 mt-1" />
+    <div className="flex flex-col">
+      <p className="text-sm font-bold">@{user.username}</p>
+      <button
+        onClick={handleLogout}
+        className="text-sm text-gray-400 text-left hover:text-black"
       >
-        <BsEscape 
-          className="text-xl"
-        />
-          <p>Logout</p>
+        Logout
       </button>
     </div>
-  )
+  </div>
+);
 }

@@ -9,7 +9,6 @@ import { AuthContext } from "../context/AuthContext";
 export default function Navbar() {
   
   const { user } = useContext(AuthContext);
-  console.log(user)
 
   return (
     <div className="min-h-screen flex">

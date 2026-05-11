@@ -49,10 +49,10 @@ export default function SignUp() {
            <h1 className="text-3xl font-bold text-center">
             Create Account
           </h1>
-          <p className="text-center text-gray-500">Start posting your emotion</p>
+          <p className="text-center text-gray-500">Start posting your feeling!</p>
         </div>
 
-        <form className="flex grow flex-col gap-2 justify-center"
+        <form className="flex grow flex-col gap-1 justify-center"
           onSubmit={handleSignUp}
         >
           {/* Input field */}

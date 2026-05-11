@@ -1,18 +1,15 @@
 import { Link } from "react-router-dom";
 import Input from "../components/Input";
-import { useContext, useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
-import { AuthContext } from "../context/AuthContext";
+import { useState } from "react";
+
 
 
 export default function Login() {
   
   const [ email, setEmail ] = useState("");
   const [ password, setPassword ] = useState("");
-  
-  const { user } = useContext(AuthContext);
-  console.log(user)
   
   const handleLogin = async (e) => {
     e.preventDefault();
