@@ -12,7 +12,7 @@ export default function Navbar() {
 
   return (
     <div className="min-h-screen flex">
-      <div className="p-10 pr-25 border-r border-black w-fit min-h-screen flex flex-col">
+      <div className="p-5 md:pr-10 sm:p-10 border-r border-black w-fit min-h-screen flex flex-col">
         <p className="font-bold text-[2.5rem]">
           Logo
         </p>

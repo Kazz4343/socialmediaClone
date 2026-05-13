@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import LogoutModal from "../components/LogoutModal";
 import Navbar from "../components/Navbar";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 import { AuthContext } from "../context/AuthContext";
 import Posts from "../components/Posts";
@@ -32,6 +32,17 @@ export default function Profile() {
     fetchProfile()
   },[])
   
+  const handleDeletePost = async (id) => {
+    try {
+      await deleteDoc(doc(db, "posts", id))
+      setPostProfile(prev => prev.filter((post) => post.id !== id))
+
+    } catch (err) {
+      console.log(err)
+    }
+
+  }
+
   return (
       <div className="flex w-full">
         <Navbar />
@@ -41,7 +52,7 @@ export default function Profile() {
           {postProfile.map((post) => {
                     return(
                       <div key={post.id} className="pl-7 mt-3">
-                        <Posts title={post.Title} message={post.Message} username={post.created_By} date={post.created_At} />
+                        <Posts title={post.Title} message={post.Message} username={post.created_By} date={post.created_At} onDelete={() => handleDeletePost(post.id)} />
                       </div>
                     )
                   })}

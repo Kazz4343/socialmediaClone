@@ -1,4 +1,6 @@
-export default function Posts( { title, message, username, date }) {
+import { useLocation } from "react-router-dom";
+
+export default function Posts( { title, message, username, date, onDelete }) {
 
   const formatDate = (date) => {
     const d = date?.toDate ? date.toDate() : new Date(date);
@@ -10,10 +12,31 @@ export default function Posts( { title, message, username, date }) {
     return `${day} ${dayName} ${time} ${month} ${year}`;
 };
 
+  const location = useLocation();
+
+
   return (    
     <div className="flex flex-col mt-3">
-      <p className="font-bole text-2xl"># {title}</p>
-      <p className="text-sm text-gray-500">{message}</p>
+      <div className="flex justify-between">
+        <div className="flex flex-col">
+          <p className="font-bole text-2xl"># {title}</p>
+          <p className="text-sm text-gray-500">{message}</p>
+        </div>
+        <div className="flex items-start mr-2">
+          { location.pathname === '/profile' ? 
+          <button 
+            className="text-red-500 
+            font-bold hover:text-red-400
+            pointer-cursor duration-150 ease-in-out"
+            onClick={onDelete}
+          >
+            X
+          </button>
+          :
+          ""  
+        }
+        </div>
+      </div>
       <div className="flex justify-between">
         <p className="text-blue-500">
           @{username}

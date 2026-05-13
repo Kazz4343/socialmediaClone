@@ -8,12 +8,11 @@ import { useNavigate } from "react-router-dom";
 export default function LogoutModal() {
   
   const { user } = useContext(AuthContext);
-  const navigate = useNavigate();
-
-   const handleLogout = async () => {
+  
+  const handleLogout = async () => {
     try {
       await signOut(auth);
-      navigate("/login")
+      
     } catch (err) {
       console.log(err)
     }

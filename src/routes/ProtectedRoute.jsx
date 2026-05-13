@@ -9,7 +9,7 @@ export default function ProtectedRoute({ children }) {
 
   return (
     <div>
-      { user ? children : <Navigate to={"login"}/>}
+      { user ? children : <Navigate to={"/login"}/>}
     </div>
   )
 }
