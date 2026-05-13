@@ -19,8 +19,8 @@ export default function Home() {
         const postDocs = await getDocs(postsRef)
 
         const posts = postDocs.docs.map((doc) => ({...doc.data(), id: doc.id})).sort((a, b) => {
-          const aTime = a.createdAt?.toMillis?.() ?? 0;
-          const bTime = b.createdAt?.toMillis?.() ?? 0;
+          const aTime = a.created_At?.toMillis?.() ?? 0;
+          const bTime = b.created_At?.toMillis?.() ?? 0;
           return bTime - aTime;
         });
         console.log(posts)
